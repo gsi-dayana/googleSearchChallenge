@@ -37,13 +37,14 @@ public class googleSearchTest {
         String xpath = "//div[@id='rcnt']/descendant::a";
         List<WebElement> results = driver.findElements(By.xpath(xpath));
         waitTime();
-        WebElement firstSearchResultName = driver.findElement(By.xpath(xpath + "/h3"));
+        List<WebElement> firstSearchResultName = driver.findElements(By.xpath(xpath + "/h3"));
         waitTime();
         String firstLink = results.get(0).getAttribute("href");
+        String firstResultTitle = firstSearchResultName.get(0).getText();
         clickElement(results.get(0));
 
-        print(firstSearchResultName.getText());
-        validate(searchValue,firstSearchResultName.getText(),"Search Title Validation");
+        print(firstResultTitle);
+        validate(searchValue,firstResultTitle,"Search Title Validation");
         validate(firstLink, driver.getCurrentUrl(),"Link Validation");
 
     }
@@ -51,9 +52,9 @@ public class googleSearchTest {
     public void validate(String value1, String value2, String Action) {
         if(value1.equals(value2))
         {
-            print(Action + ":\n Test Result: El primer link coincide con la URL mostrada");
+            print(Action + ":\n Test Result: Validation passed");
         } else {
-            print(Action + ":\n Test Result: El primer link no coincide con la URL mostrada \n Expected value: " + value1 + "\n Actual value: " + value2);
+            print(Action + ":\n Test Result: Validation failed \n Expected value: " + value1 + "\n Actual value: " + value2);
         }
     }
 
