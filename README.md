@@ -1,7 +1,7 @@
 # googleSearchChallenge
 
 Descripción del Proyecto:
--> Hacer una búsqueda en google 
+-> Hacer una búsqueda en google. 
 Validar si el resultado cumple con los criterios de búsqueda especificados.
 Acceder al primer resultado de la búsqueda y comprobar que la URL es la correcta.
 
