@@ -43,7 +43,7 @@ public class googleSearchTest {
         clickElement(results.get(0));
 
         print(firstSearchResultName.getText());
-        validate(searchValue,firstSearchResultName.getText(),"Search");
+        validate(searchValue,firstSearchResultName.getText(),"Search Title Validation");
         validate(firstLink, driver.getCurrentUrl(),"Link Validation");
 
     }
