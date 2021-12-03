@@ -21,40 +21,45 @@ public class googleSearchTest {
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", System.getenv("CHROME_DRIVER"));
         driver = new ChromeDriver();
-        driver.manage().window().maximize();
         driver.get("https://www.google.com/");
+        driver.manage().window().maximize();
     }
 
     @Test
     public void testGoogleSearch() {
-        WebElement searchInputElement = driver.findElement(By.name("q"));
-        searchInputElement.clear();
-        String searchValue = "Selenium";
-        searchInputElement.sendKeys(searchValue, Keys.RETURN);
+        try {
+            WebElement searchInputElement = driver.findElement(By.name("q"));
+            searchInputElement.clear();
+            String searchValue = "Selenium";
+            searchInputElement.sendKeys(searchValue, Keys.RETURN);
 
-        waitTime();
-        //List<WebElement> firstSearchResultName = driver.findElements(By.xpath("//div[@id='rcnt']/descendant::h3"));
-        String xpath = "//div[@id='rcnt']/descendant::a";
-        List<WebElement> results = driver.findElements(By.xpath(xpath));
-        waitTime();
-        List<WebElement> firstSearchResultName = driver.findElements(By.xpath(xpath + "/h3"));
-        waitTime();
-        String firstLink = results.get(0).getAttribute("href");
-        String firstResultTitle = firstSearchResultName.get(0).getText();
-        clickElement(results.get(0));
+            waitTime();
+            String xpath = "//div[@id='rcnt']/descendant::a";
+            List<WebElement> results = driver.findElements(By.xpath(xpath));
+            waitTime();
+            List<WebElement> firstSearchResultName = driver.findElements(By.xpath(xpath + "/h3"));
+            waitTime();
+            String firstLink = results.get(0).getAttribute("href");
+            String firstResultTitle = firstSearchResultName.get(0).getText();
+            clickElement(results.get(0));
 
-        print(firstResultTitle);
-        validate(searchValue,firstResultTitle,"Search Title Validation");
-        validate(firstLink, driver.getCurrentUrl(),"Link Validation");
+            validate(searchValue, firstResultTitle, "Search Title Validation");
+            validate(firstLink, driver.getCurrentUrl(), "Search Link Validation");
+        } catch (Exception e) {
+            print("An error occured: " + e.getMessage());
+        }
 
     }
 
     public void validate(String value1, String value2, String Action) {
-        if(value1.equals(value2))
-        {
-            print(Action + ":\n Test Result: Validation passed");
-        } else {
-            print(Action + ":\n Test Result: Validation failed \n Expected value: " + value1 + "\n Actual value: " + value2);
+        try {
+            if (value1.equals(value2)) {
+                print(Action + ":\n Test Result: Validation passed");
+            } else {
+                print(Action + ":\n Test Result: Validation failed \n Expected value: " + value1 + "\n Actual value: " + value2);
+            }
+        } catch (Exception e) {
+            print("An error occured: " + e.getMessage());
         }
     }
 
@@ -65,7 +70,7 @@ public class googleSearchTest {
     }
 
     public void waitTime() {
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     public void print(String value) {
