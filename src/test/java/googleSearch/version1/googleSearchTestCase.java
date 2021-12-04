@@ -1,4 +1,4 @@
-package googleSearchTest;
+package googleSearch.version1;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,7 +13,7 @@ import org.openqa.selenium.interactions.Actions;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class googleSearchTest {
+public class googleSearchTestCase {
 
     private WebDriver driver;
 
