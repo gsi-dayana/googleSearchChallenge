@@ -1,4 +1,4 @@
-package googleSearch.version1;
+package googleSearch;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +42,7 @@ public class googleSearchTestCase {
             String firstLink = results.get(0).getAttribute("href");
             String firstResultTitle = firstSearchResultName.get(0).getText();
             clickElement(results.get(0));
-
+            waitTime();
             validate(searchValue, firstResultTitle, "Search Title Validation");
             validate(firstLink, driver.getCurrentUrl(), "Search Link Validation");
         } catch (Exception e) {
