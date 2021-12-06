@@ -8,8 +8,3 @@ Acceder al primer resultado de la búsqueda y comprobar que la URL es la correct
 En el ejercicio se esperan dos resultados o validaciones diferentes, en uno que el criterio de búsqueda que se establezca sea resuelto por el motor de google. 
 Y en el la segunda acción cuando abras el link de alguno de los resultados expresados (el primero como se pide en este ejercicio) tendrías que comprobar que la url 
 que se abra coincide con el link del resultado al que le estas dando click.
-
-# IMPORTANT
-This project contains two different versions:
-   1. /src/test/java/googleSearch/version1/googleSearchTestCase (This one is without using POM)
-   2. /src/test/resources/features/googleSearch.feature (This one is using POM)
