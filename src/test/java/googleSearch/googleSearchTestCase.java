@@ -28,23 +28,27 @@ public class googleSearchTestCase {
     @Test
     public void testGoogleSearch() {
         try {
-            WebElement searchInputElement = driver.findElement(By.name("q"));
+            WebElement searchInputElement = getElement(By.name("q"));
             searchInputElement.clear();
             String searchValue = "Selenium";
-            searchInputElement.sendKeys(searchValue, Keys.RETURN);
-
-            waitTime();
-            String xpath = "//div[@id='rcnt']/descendant::a";
-            List<WebElement> results = driver.findElements(By.xpath(xpath));
-            waitTime();
-            List<WebElement> firstSearchResultName = driver.findElements(By.xpath(xpath + "/h3"));
-            waitTime();
-            String firstLink = results.get(0).getAttribute("href");
-            String firstResultTitle = firstSearchResultName.get(0).getText();
-            clickElement(results.get(0));
-            waitTime();
-            validate(searchValue, firstResultTitle, "Search Title Validation");
-            validate(firstLink, driver.getCurrentUrl(), "Search Link Validation");
+            By googleLogo = By.id("hplogo");
+            if(driver.findElement(googleLogo).isDisplayed()){
+                searchInputElement.sendKeys(searchValue, Keys.RETURN);
+                waitTime();
+                String xpath = "//div[@id='rcnt']/descendant::a";
+                List<WebElement> results = getElements(By.xpath(xpath));
+                List<WebElement> firstSearchResultName = getElements(By.xpath(xpath + "/h3"));
+                waitTime();
+                String firstLink = results.get(0).getAttribute("href");
+                String firstResultTitle = firstSearchResultName.get(0).getText();
+                clickElement(results.get(0));
+                waitTime();
+                validate(searchValue, firstResultTitle, "Search Title Validation");
+                validate(firstLink, driver.getCurrentUrl(), "Search Link Validation");
+            }
+            else {
+                print("Google Search view was not found");
+            }
         } catch (Exception e) {
             print("An error occured: " + e.getMessage());
         }
@@ -67,6 +71,14 @@ public class googleSearchTestCase {
         Actions action = new Actions(driver);
         action.moveToElement(element).build().perform();
         action.click(element).build().perform();
+    }
+
+    public WebElement getElement(By by){
+        return driver.findElement(by);
+    }
+
+    public List<WebElement> getElements(By by){
+        return driver.findElements(by);
     }
 
     public void waitTime() {
