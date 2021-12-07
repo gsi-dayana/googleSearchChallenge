@@ -9,8 +9,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 public class googleSearchTestCase {
@@ -32,19 +34,22 @@ public class googleSearchTestCase {
             searchInputElement.clear();
             String searchValue = "Selenium";
             By googleLogo = By.id("hplogo");
+            By seleniumLogo = By.cssSelector("svg[id='selenium_logo']");
+            WebDriverWait wait = new WebDriverWait(driver,10);
+
             if(driver.findElement(googleLogo).isDisplayed()){
                 searchInputElement.sendKeys(searchValue, Keys.RETURN);
-                waitTime();
+                wait.until(ExpectedConditions.titleContains(searchValue));
                 String xpath = "//div[@id='rcnt']/descendant::a";
                 List<WebElement> results = getElements(By.xpath(xpath));
-                List<WebElement> firstSearchResultName = getElements(By.xpath(xpath + "/h3"));
-                waitTime();
+                List<WebElement> searchResultsNames = getElements(By.xpath(xpath + "/h3"));
+                wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
                 String firstLink = results.get(0).getAttribute("href");
-                String firstResultTitle = firstSearchResultName.get(0).getText();
+                String firstResultTitle = searchResultsNames.get(0).getText();
                 clickElement(results.get(0));
-                waitTime();
                 validate(searchValue, firstResultTitle, "Search Title Validation");
                 validate(firstLink, driver.getCurrentUrl(), "Search Link Validation");
+                wait.until(ExpectedConditions.visibilityOf(getElement(seleniumLogo)));
             }
             else {
                 print("Google Search view was not found");
@@ -79,10 +84,6 @@ public class googleSearchTestCase {
 
     public List<WebElement> getElements(By by){
         return driver.findElements(by);
-    }
-
-    public void waitTime() {
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
     public void print(String value) {
