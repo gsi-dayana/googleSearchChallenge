@@ -45,12 +45,8 @@ public class googleSearchTestCase {
                     print(machResults.size());
                     if(i>=machResults.size()) {
                         driver.get("https://www.google.com/");
-                        print(searchInputElement);
-                        print(searchValue);
-                        print(xpath);
                         introduceValue(searchInputElement,searchValue,xpath);
                     }
-
                     String href = machResults.get(i).getAttribute("href");
                     machResults.get(i).click();
                     if(href.equals(driver.getCurrentUrl())) {
