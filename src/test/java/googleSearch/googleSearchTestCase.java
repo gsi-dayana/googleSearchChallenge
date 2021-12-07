@@ -40,8 +40,6 @@ public class googleSearchTestCase {
 
             if(driver.findElement(googleLogo).isDisplayed()){
                 introduceValue(searchInputElement,searchValue,xpath);
-                List<WebElement> results = getElements(By.xpath(xpath));
-                List<WebElement> searchResultsNames = getElements(By.xpath(xpath + "/h3"));
                 HashMap<Integer,WebElement> machResults = getMatchingResults(searchValue,xpath);
                 for (int i=0;i<machResults.size();i++) {
                     print(machResults.size());
