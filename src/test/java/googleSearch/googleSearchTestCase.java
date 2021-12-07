@@ -42,7 +42,6 @@ public class googleSearchTestCase {
                 introduceValue(searchInputElement,searchValue,xpath);
                 HashMap<Integer,WebElement> machResults = getMatchingResults(searchValue,xpath);
                 for (int i=0;i<machResults.size();i++) {
-                    print(machResults.size());
                     if(i>=machResults.size()) {
                         driver.get("https://www.google.com/");
                         introduceValue(searchInputElement,searchValue,xpath);
