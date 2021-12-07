@@ -41,9 +41,9 @@ public class googleSearchTestCase {
                 searchInputElement.sendKeys(searchValue, Keys.RETURN);
                 wait.until(ExpectedConditions.titleContains(searchValue));
                 String xpath = "//div[@id='rcnt']/descendant::a";
+                wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
                 List<WebElement> results = getElements(By.xpath(xpath));
                 List<WebElement> searchResultsNames = getElements(By.xpath(xpath + "/h3"));
-                wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
                 String firstLink = results.get(0).getAttribute("href");
                 String firstResultTitle = searchResultsNames.get(0).getText();
                 clickElement(results.get(0));
